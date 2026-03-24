@@ -75,6 +75,7 @@ export function ResortMapPanel({
                     fill
                     sizes="36px"
                     className="object-cover"
+                    style={{ transform: `rotate(${element.rotation}deg)` }}
                   />
                 </div>
               ))

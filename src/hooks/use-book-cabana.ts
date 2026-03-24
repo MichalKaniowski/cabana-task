@@ -7,7 +7,7 @@ type BookingResponse = {
   error: string;
 };
 
-export const useCabanaBook = () => {
+export const useBookCabana = () => {
   return useMutation({
     mutationFn: async ({
       cabanaId,

@@ -1,7 +1,7 @@
 import { getCabanaBooking, getCabanaId } from "@/lib/cabana-bookings";
 import { getMapFilePath } from "@/lib/runtime-config";
 import { getTileAssetSrc } from "@/tiles";
-import { Map, TileType } from "@/types";
+import { ResortMap, TileType } from "@/types";
 import { readFile } from "node:fs/promises";
 import arrowCornerSquare from "../../../../assets/arrowCornerSquare.png";
 import arrowCrossing from "../../../../assets/arrowCrossing.png";
@@ -108,7 +108,7 @@ export async function GET() {
     };
   };
 
-  const formattedMap: Map = rows.map((row, rowIdx) => {
+  const formattedMap: ResortMap = rows.map((row, rowIdx) => {
     const rowElements = row.split("") as TileType[];
 
     return rowElements.map((element, colIdx) => {

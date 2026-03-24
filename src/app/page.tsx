@@ -4,12 +4,12 @@ import { ResortLegend } from "@/components/resort-map/resort-legend";
 import { ResortMapPanel } from "@/components/resort-map/resort-map-panel";
 import { useQuery } from "@tanstack/react-query";
 import { kyInstance } from "../lib/ky";
-import { Map } from "../types";
+import { ResortMap } from "../types";
 
 export default function Home() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["map"],
-    queryFn: () => kyInstance.get("/api/map").json<{ map: Map }>(),
+    queryFn: () => kyInstance.get("/api/map").json<{ map: ResortMap }>(),
   });
   const map = data?.map;
 

@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 import { tiles } from "@/tiles";
-import { Element } from "@/types";
+import { CabanaElement, ResortMapElement } from "@/types";
 import Image from "next/image";
 
-function getTileClassName(element: Element) {
+function getTileClassName(element: ResortMapElement) {
   const baseClassName =
     "relative aspect-square w-full min-w-[36px] overflow-hidden rounded-[14px] border border-[rgba(93,70,41,0.1)] bg-[#f5ecdd] shadow-[0_3px_8px_rgba(83,61,32,0.08)] max-sm:min-w-[30px]";
 
@@ -28,10 +28,8 @@ function getTileClassName(element: Element) {
 }
 
 interface MapTileProps {
-  element: Element;
-  onCabanaClick?: (
-    element: Extract<Element, { elementType: "cabana" }>
-  ) => void;
+  element: ResortMapElement;
+  onCabanaClick?: (element: CabanaElement) => void;
 }
 
 export const MapTile = ({ element, onCabanaClick }: MapTileProps) => {

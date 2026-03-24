@@ -1,12 +1,12 @@
 "use client";
 
-import { CabanaElement, Map } from "@/types";
+import { CabanaElement, ResortMap } from "@/types";
 import { useState } from "react";
 import { CabanaBookingCard } from "./cabana-booking-card";
 import { MapTile } from "./map-tile";
 
 type ResortMapPanelProps = {
-  map: Map;
+  map: ResortMap;
 };
 
 export function ResortMapPanel({ map }: ResortMapPanelProps) {
@@ -18,9 +18,7 @@ export function ResortMapPanel({ map }: ResortMapPanelProps) {
         element.elementType === "cabana" && element.id === selectedCabanaId
     ) as CabanaElement;
 
-  const handleCabanaClick = (
-    element: Extract<Map[number][number], { elementType: "cabana" }>
-  ) => {
+  const handleCabanaClick = (element: CabanaElement) => {
     setSelectedCabanaId(element.id);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -40,6 +38,7 @@ export function ResortMapPanel({ map }: ResortMapPanelProps) {
 
       {selectedCabana && (
         <CabanaBookingCard
+          key={selectedCabana.id}
           cabana={selectedCabana}
           onClose={() => setSelectedCabanaId(null)}
         />

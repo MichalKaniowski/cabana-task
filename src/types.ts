@@ -8,20 +8,21 @@ export interface CabanaState {
   };
 }
 
-export interface NormalElement {
-  elementType: "normal";
-  type: TileType;
-  assetSrc: string;
-  rotation: number;
-}
-export interface CabanaElement {
-  elementType: "cabana";
-  id: string;
-  cabanaState: CabanaState;
+export interface ResortMapElementBase {
   type: TileType;
   assetSrc: string;
   rotation: number;
 }
 
-export type Element = NormalElement | CabanaElement;
-export type Map = Element[][];
+export interface StaticResortMapElement extends ResortMapElementBase {
+  elementType: "normal";
+}
+
+export interface CabanaElement extends ResortMapElementBase {
+  elementType: "cabana";
+  id: string;
+  cabanaState: CabanaState;
+}
+
+export type ResortMapElement = StaticResortMapElement | CabanaElement;
+export type ResortMap = ResortMapElement[][];

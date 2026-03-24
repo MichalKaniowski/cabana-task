@@ -19,27 +19,27 @@ export const tiles: Record<
   W: {
     asset: cabanaTile,
     label: "Cabana",
-    legendCopy: "Poolside lounge spots ready for booking.",
+    legendCopy: "Poolside lounge spots.",
   },
   p: {
     asset: poolTile,
     label: "Pool",
-    legendCopy: "Water tiles around the central resort pool.",
+    legendCopy: "Resort pool areas.",
   },
   "#": {
     asset: arrowStraight,
     label: "Path",
-    legendCopy: "Walkways connecting the property.",
+    legendCopy: "Walkways connecting the resort grounds.",
   },
   c: {
     asset: chaletTile,
     label: "Chalet",
-    legendCopy: "Guest chalet buildings across the grounds.",
+    legendCopy: "Guest chalet buildings.",
   },
   ".": {
     asset: emptyTile,
     label: "Empty space",
-    legendCopy: "Open decorative space in the resort plan.",
+    legendCopy: "Open decorative spaces.",
   },
 };
 

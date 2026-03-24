@@ -11,7 +11,6 @@ type ResortMapPanelProps = {
 
 export function ResortMapPanel({ map }: ResortMapPanelProps) {
   const [selectedCabanaId, setSelectedCabanaId] = useState<string | null>(null);
-
   const selectedCabana = map
     .flat()
     .find(

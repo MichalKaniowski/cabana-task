@@ -1,18 +1,17 @@
 import { getTileAssetSrc } from "@/tiles";
+import { getMapFilePath } from "@/lib/runtime-config";
 import { Map, TileType } from "@/types";
 import { readFile } from "node:fs/promises";
-import path from "node:path";
 import arrowCornerSquare from "../../../../assets/arrowCornerSquare.png";
 import arrowCrossing from "../../../../assets/arrowCrossing.png";
 import arrowEnd from "../../../../assets/arrowEnd.png";
 import arrowSplit from "../../../../assets/arrowSplit.png";
 import arrowStraight from "../../../../assets/arrowStraight.png";
 
-const mapPath = path.join(process.cwd(), "map.ascii");
 type Direction = "top" | "right" | "bottom" | "left";
 
 export async function GET() {
-  const asciiMap = await readFile(mapPath, "utf8");
+  const asciiMap = await readFile(getMapFilePath(), "utf8");
   const rows = asciiMap.trimEnd().split("\n");
 
   const directions = {

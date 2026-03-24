@@ -3,7 +3,7 @@ import {
   getCabanaBooking,
   isGuestBookingValid,
   readGuestBookings,
-} from "@/lib/cabana-bookings";
+} from "@/app/api/cabanas/book/cabana-bookings";
 
 type BookingRequestBody = {
   cabanaId?: string;

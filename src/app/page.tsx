@@ -1,8 +1,8 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import { ResortLegend } from "@/components/resort-map/resort-legend";
 import { ResortMapPanel } from "@/components/resort-map/resort-map-panel";
+import { useQuery } from "@tanstack/react-query";
 import { kyInstance } from "../lib/ky";
 import { Map } from "../types";
 
@@ -11,7 +11,6 @@ export default function Home() {
     queryKey: ["map"],
     queryFn: () => kyInstance.get("/api/map").json<{ map: Map }>(),
   });
-
   const map = data?.map;
 
   return (
@@ -25,8 +24,24 @@ export default function Home() {
       </section>
 
       <section className="gap-3 grid lg:grid-cols-[250px_minmax(0,1fr)] mt-3">
-        <ResortLegend />
-        <ResortMapPanel isLoading={isLoading} isError={isError} map={map} />
+        {isLoading && (
+          <div className="bg-[#edf5f7] mt-4 px-[1.1rem] py-4 rounded-[18px] text-[#49656a]">
+            Loading resort map...
+          </div>
+        )}
+
+        {isError && (
+          <div className="bg-[#ffe4de] mt-4 px-[1.1rem] py-4 rounded-[18px] text-[#8c2d1f]">
+            Couldn&apos;t load the resort map.
+          </div>
+        )}
+
+        {map && (
+          <>
+            <ResortLegend />
+            <ResortMapPanel map={map} />
+          </>
+        )}
       </section>
     </main>
   );

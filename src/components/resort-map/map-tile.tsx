@@ -3,6 +3,10 @@ import { tiles } from "@/tiles";
 import { CabanaElement, ResortMapElement } from "@/types";
 import Image from "next/image";
 
+function assertNever(value: never): never {
+  throw new Error(`Unhandled tile type: ${value}`);
+}
+
 function getTileClassName(element: ResortMapElement) {
   const baseClassName =
     "relative aspect-square w-full min-w-[36px] overflow-hidden rounded-[14px] border border-[rgba(93,70,41,0.1)] bg-[#f5ecdd] shadow-[0_3px_8px_rgba(83,61,32,0.08)] max-sm:min-w-[30px]";
@@ -22,9 +26,12 @@ function getTileClassName(element: ResortMapElement) {
       return `${baseClassName} shadow-[0_3px_8px_rgba(83,61,32,0.08),inset_0_0_0_2px_rgba(31,135,173,0.16)]`;
     case "c":
       return `${baseClassName} shadow-[0_3px_8px_rgba(83,61,32,0.08),inset_0_0_0_2px_rgba(140,103,52,0.16)]`;
-    default:
+    case ".":
+    case "#":
       return baseClassName;
   }
+
+  return assertNever(element.type);
 }
 
 interface MapTileProps {

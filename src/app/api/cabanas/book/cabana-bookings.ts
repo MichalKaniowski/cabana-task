@@ -1,4 +1,4 @@
-import { getBookingsFilePath } from "@/lib/runtime-config";
+import { getBookingsFilePath } from "@/app/api/runtime-config";
 import { readFile } from "node:fs/promises";
 
 type GuestRecord = {

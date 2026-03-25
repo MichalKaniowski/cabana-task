@@ -1,5 +1,5 @@
 import { buildResortMap } from "@/app/api/map/build-resort-map";
-import { getMapFilePath } from "@/lib/runtime-config";
+import { getMapFilePath } from "@/app/api/runtime-config";
 import { readFile } from "node:fs/promises";
 
 export const GET = async () => {

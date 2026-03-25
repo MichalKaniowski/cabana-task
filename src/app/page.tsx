@@ -23,24 +23,26 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="gap-3 grid lg:grid-cols-[250px_minmax(0,1fr)] mt-3">
-        {isLoading && (
-          <div className="bg-[#edf5f7] mt-4 px-[1.1rem] py-4 rounded-[18px] text-[#49656a]">
-            Loading resort map...
-          </div>
-        )}
+      <section className="mt-3">
+        <div className="gap-3 grid mt-4">
+          {isLoading && (
+            <div className="bg-[#edf5f7] px-[1.1rem] py-4 rounded-[18px] text-[#49656a]">
+              Loading resort map...
+            </div>
+          )}
 
-        {isError && (
-          <div className="bg-[#ffe4de] mt-4 px-[1.1rem] py-4 rounded-[18px] text-[#8c2d1f]">
-            Couldn&apos;t load the resort map.
-          </div>
-        )}
+          {isError && (
+            <div className="bg-[#ffe4de] px-[1.1rem] py-4 rounded-[18px] text-[#8c2d1f]">
+              Couldn&apos;t load the resort map.
+            </div>
+          )}
+        </div>
 
         {map && (
-          <>
+          <div className="gap-3 grid lg:grid-cols-[250px_minmax(0,1fr)] mt-4">
             <ResortLegend />
             <ResortMapPanel map={map} />
-          </>
+          </div>
         )}
       </section>
     </main>

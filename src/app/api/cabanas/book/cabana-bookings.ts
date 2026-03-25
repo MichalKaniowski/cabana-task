@@ -19,28 +19,28 @@ const cabanaBookings =
   state.__cabanaBookings ?? new Map<string, CabanaBooking>();
 state.__cabanaBookings = cabanaBookings;
 
-export function getCabanaId(rowIndex: number, columnIndex: number) {
+export const getCabanaId = (rowIndex: number, columnIndex: number) => {
   return `cabana-${rowIndex + 1}-${columnIndex + 1}`;
-}
+};
 
-export function getCabanaBooking(cabanaId: string) {
+export const getCabanaBooking = (cabanaId: string) => {
   return cabanaBookings.get(cabanaId);
-}
+};
 
-export function bookCabana(cabanaId: string, booking: CabanaBooking) {
+export const bookCabana = (cabanaId: string, booking: CabanaBooking) => {
   cabanaBookings.set(cabanaId, booking);
-}
+};
 
-export async function readGuestBookings() {
+export const readGuestBookings = async () => {
   const contents = await readFile(getBookingsFilePath(), "utf8");
   return JSON.parse(contents) as GuestRecord[];
-}
+};
 
-export function isGuestBookingValid(
+export const isGuestBookingValid = (
   guestBookings: GuestRecord[],
   room: string,
   guestName: string
-) {
+) => {
   const normalizedRoom = room.trim();
   const normalizedGuestName = guestName.trim().toLocaleLowerCase();
 
@@ -49,4 +49,4 @@ export function isGuestBookingValid(
       booking.room === normalizedRoom &&
       booking.guestName.trim().toLocaleLowerCase() === normalizedGuestName
   );
-}
+};

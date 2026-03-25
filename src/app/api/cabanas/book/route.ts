@@ -11,7 +11,7 @@ type BookingRequestBody = {
   guestName?: string;
 };
 
-export async function POST(request: Request) {
+export const POST = async (request: Request) => {
   const { cabanaId, room, guestName } =
     (await request.json()) as BookingRequestBody;
 
@@ -52,4 +52,4 @@ export async function POST(request: Request) {
     success: true,
     error: "",
   });
-}
+};

@@ -8,7 +8,10 @@ interface CabanaBookingCardProps {
   onClose: () => void;
 }
 
-export function CabanaBookingCard({ cabana, onClose }: CabanaBookingCardProps) {
+export const CabanaBookingCard = ({
+  cabana,
+  onClose,
+}: CabanaBookingCardProps) => {
   const {
     room,
     guestName,
@@ -90,4 +93,4 @@ export function CabanaBookingCard({ cabana, onClose }: CabanaBookingCardProps) {
       </div>
     </>
   );
-}
+};

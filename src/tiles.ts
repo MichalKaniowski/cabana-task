@@ -43,6 +43,6 @@ export const tiles: Record<
   },
 };
 
-export function getTileAssetSrc(type: TileType) {
+export const getTileAssetSrc = (type: TileType) => {
   return tiles[type].asset.src;
-}
+};

@@ -1,9 +1,9 @@
 import path from "node:path";
 
-function resolveConfiguredPath(
+const resolveConfiguredPath = (
   configuredPath: string | undefined,
   defaultFileName: string
-) {
+) => {
   const normalizedPath = configuredPath?.trim();
 
   if (!normalizedPath) {
@@ -13,12 +13,12 @@ function resolveConfiguredPath(
   return path.isAbsolute(normalizedPath)
     ? normalizedPath
     : path.resolve(process.cwd(), normalizedPath);
-}
+};
 
-export function getMapFilePath() {
+export const getMapFilePath = () => {
   return resolveConfiguredPath(process.env.MAP_PATH, "map.ascii");
-}
+};
 
-export function getBookingsFilePath() {
+export const getBookingsFilePath = () => {
   return resolveConfiguredPath(process.env.BOOKINGS_PATH, "bookings.json");
-}
+};

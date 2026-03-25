@@ -20,10 +20,10 @@ const emptyFormValues: BookingFormValues = {
   guestName: "",
 };
 
-export function useCabanaBookingForm({
+export const useCabanaBookingForm = ({
   cabana,
   onClose,
-}: UseCabanaBookingFormParams) {
+}: UseCabanaBookingFormParams) => {
   const queryClient = useQueryClient();
   const [formValues, setFormValues] =
     useState<BookingFormValues>(emptyFormValues);
@@ -98,4 +98,4 @@ export function useCabanaBookingForm({
     setRoom: (value: string) => setFieldValue("room", value),
     setGuestName: (value: string) => setFieldValue("guestName", value),
   };
-}
+};

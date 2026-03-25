@@ -9,7 +9,7 @@ type ResortMapPanelProps = {
   map: ResortMap;
 };
 
-export function ResortMapPanel({ map }: ResortMapPanelProps) {
+export const ResortMapPanel = ({ map }: ResortMapPanelProps) => {
   const [selectedCabanaId, setSelectedCabanaId] = useState<string | null>(null);
   const selectedCabana = map
     .flat()
@@ -64,4 +64,4 @@ export function ResortMapPanel({ map }: ResortMapPanelProps) {
       </div>
     </section>
   );
-}
+};

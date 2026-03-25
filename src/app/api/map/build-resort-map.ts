@@ -19,23 +19,23 @@ const directions: Record<Direction, readonly [number, number]> = {
   left: [0, -1],
 };
 
-function getTileAt(rows: string[], rowIndex: number, columnIndex: number) {
+const getTileAt = (rows: string[], rowIndex: number, columnIndex: number) => {
   return rows[rowIndex]?.[columnIndex] ?? ".";
-}
+};
 
-function isConnectedTile(
+const isConnectedTile = (
   rows: string[],
   rowIndex: number,
   columnIndex: number
-) {
+) => {
   return getTileAt(rows, rowIndex, columnIndex) !== ".";
-}
+};
 
-function getConnectedDirections(
+const getConnectedDirections = (
   rows: string[],
   rowIndex: number,
   columnIndex: number
-) {
+) => {
   return (Object.keys(directions) as Direction[]).filter((direction) => {
     const [rowOffset, columnOffset] = directions[direction];
 
@@ -45,13 +45,13 @@ function getConnectedDirections(
       columnIndex + columnOffset
     );
   });
-}
+};
 
-function getArrowTileAsset(
+const getArrowTileAsset = (
   rows: string[],
   rowIndex: number,
   columnIndex: number
-) {
+) => {
   const connectedDirections = getConnectedDirections(
     rows,
     rowIndex,
@@ -124,14 +124,14 @@ function getArrowTileAsset(
       ? rotationByMissingDirection[missingDirection]
       : 0,
   };
-}
+};
 
-function buildMapTile(
+const buildMapTile = (
   rows: string[],
   tileType: TileType,
   rowIndex: number,
   columnIndex: number
-) {
+) => {
   const tile =
     tileType === "#"
       ? {
@@ -160,9 +160,9 @@ function buildMapTile(
       booking,
     },
   };
-}
+};
 
-export function buildResortMap(asciiMap: string): ResortMap {
+export const buildResortMap = (asciiMap: string): ResortMap => {
   const rows = asciiMap.trimEnd().split("\n");
 
   return rows.map((row, rowIndex) =>
@@ -170,4 +170,4 @@ export function buildResortMap(asciiMap: string): ResortMap {
       buildMapTile(rows, tileType, rowIndex, columnIndex)
     )
   );
-}
+};

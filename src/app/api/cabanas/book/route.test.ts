@@ -119,4 +119,24 @@ describe("POST /api/cabanas/book", () => {
       guestName: "Xavier Green",
     });
   });
+
+  it("trims room and guest name before saving a valid booking", async () => {
+    mockedReadFile.mockResolvedValue(
+      JSON.stringify([{ room: "204", guestName: "Xavier Green" }])
+    );
+
+    const response = await POST(
+      makeRequest({
+        cabanaId: "cabana-1-1",
+        room: " 204 ",
+        guestName: " Xavier Green ",
+      })
+    );
+
+    expect(response.status).toBe(200);
+    expect(getCabanaBooking("cabana-1-1")).toEqual({
+      room: "204",
+      guestName: "Xavier Green",
+    });
+  });
 });

@@ -1,14 +1,14 @@
+import arrowCornerSquare from "@/../assets/arrowCornerSquare.png";
+import arrowCrossing from "@/../assets/arrowCrossing.png";
+import arrowEnd from "@/../assets/arrowEnd.png";
+import arrowSplit from "@/../assets/arrowSplit.png";
+import arrowStraight from "@/../assets/arrowStraight.png";
 import {
   getCabanaBooking,
   getCabanaId,
 } from "@/app/api/cabanas/book/cabana-bookings";
 import { getTileAssetSrc } from "@/tiles";
 import { ResortMap, TileType } from "@/types";
-import arrowCornerSquare from "../../assets/arrowCornerSquare.png";
-import arrowCrossing from "../../assets/arrowCrossing.png";
-import arrowEnd from "../../assets/arrowEnd.png";
-import arrowSplit from "../../assets/arrowSplit.png";
-import arrowStraight from "../../assets/arrowStraight.png";
 
 type Direction = "top" | "right" | "bottom" | "left";
 

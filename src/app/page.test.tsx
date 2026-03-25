@@ -66,7 +66,7 @@ const createMockResponse = <T,>(
   getJsonResult: () => Promise<T>
 ): ResponsePromise<T> => {
   return {
-    json: async <J = T>() => (await getJsonResult()) as J,
+    json: async <J = T,>() => (await getJsonResult()) as J,
   } as unknown as ResponsePromise<T>;
 };
 
@@ -96,7 +96,9 @@ describe("Home initial load", () => {
 
     jest
       .mocked(kyInstance.get)
-      .mockReturnValue(createMockResponse(async () => deferredMapResponse.promise));
+      .mockReturnValue(
+        createMockResponse(async () => deferredMapResponse.promise)
+      );
 
     renderHomePage();
 
@@ -113,7 +115,7 @@ describe("Home initial load", () => {
     expect(screen.queryByText("Loading resort map...")).not.toBeInTheDocument();
   });
 
-  it("shows an error message when loading the map fails", async () => {
+  it("shows an error message when fetching the map fails", async () => {
     jest.mocked(kyInstance.get).mockReturnValue(
       createMockResponse(async () => {
         throw new Error("Map request failed");

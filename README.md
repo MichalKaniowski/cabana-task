@@ -75,5 +75,4 @@ To run tests, run `npm run test`.
 
 ## AI Workflow
 
-`AI.md` has not been added yet in the current state of the repository.
 AI workflow used by me: [AI.md](./AI.md)

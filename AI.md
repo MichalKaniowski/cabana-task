@@ -10,10 +10,10 @@
 ## 2. Workflow & Steps
 
 1. **New Conversation:** Creating a fresh conversation for every new feature. This prevents context contamination from previous tasks.
-2. **Context Injection:** Injecting the specific requirements and context for the current feature. (Global rules from `agents.md` are passed automatically by the agent).
-3. **Scaffolding & Design (AI-Assisted):** Generate the initial boilerplate code and lay out the foundational design.
+2. **Context Injection:** Injecting the specific requirements and context for the current feature.
+3. **Scaffolding & Design (AI-Assisted):** Generate the initial boilerplate code and lay out design.
 4. **Core Implementation (Manual):** Writing the actual business logic, state management, and algorithmic work manually. Afterward, I ask the AI to review the implemented code to identify potential edge cases and areas for improvement.
-5. **Documentation (AI-Assisted):** If needed, update the `README.md` or `agents.md` to reflect new feature capabilities or architectural decisions.
+5. **Documentation (AI-Assisted):** If needed, update the `README.md` or `AGENTS.md` to reflect new feature capabilities or architectural decisions.
 
 ## 3. Key Prompts Used
 

@@ -71,7 +71,7 @@ Trade-offs:
 
 ## Tests
 
-To be added.
+To run tests, run `npm run test`.
 
 ## AI Workflow
 

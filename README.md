@@ -23,7 +23,7 @@ npm run dev
 Start the app with custom files:
 
 ```bash
-npm run dev -- --map ./src/map-variant.ascii --bookings ./src/bookings-variant.json
+npm run dev -- --map ./example-map-path.ascii --bookings ./example-bookings-path.json
 ```
 
 For a production build, run:

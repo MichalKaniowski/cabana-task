@@ -1,63 +1,79 @@
-# Resort Map — Code Test
+# Resort Map App
 
-*You are creating the world's first interactive cabana booking website for luxury resorts. Our goal is to offer guests a seamless digital experience: browse an interactive map of the resort, see poolside cabanas availability in real time, and book their ideal lounging spot just steps from the pool—all with just a couple of clicks. This project integrates a visually-rich resort map with live cabana availability and booking, redefining poolside convenience for our guests. Map format and asset usage are described below.*
+This project is a full-stack Next.js app for viewing a resort map and booking cabanas. The frontend renders the resort as a tile-based interactive map, while the backend exposes REST endpoints for loading the map and validating and creating cabana bookings.
 
----
+## Screenshot
 
-## Task
+Screenshot of the running app: [screenshot.png](./screenshot.png)
 
-Build a webapp that displays the resort map and allows guests to book cabanas. The frontend should rely entirely on a RESTful API for all data.
+## How To Run
 
-- **Backend:** Provides a RESTful API that serves all information needed to display the interactive, bookable resort map and to handle cabana bookings.
-- **Frontend:** Provides an interactive resort map and enables cabana booking.
+Install dependencies:
 
-  - **Resort Map View:**
-    - Displays a visual map of the resort using tiles from `assets`.
-    - Map layout and cabana availability are rendered based on the API response.
-    - Legend:
-      - `W` = cabana
-      - `p` = pool
-      - `#` = path
-      - `c` = chalet
-      - `.` = empty space
+```bash
+npm install
+```
 
-  - **Cabana Interaction:**
-    - When a guest clicks on a cabana (`W`):
-      - If the cabana is **available**, show a booking interface (1-step flow: prompt for room number and guest name). Show confirmation of booking and redirect back to map view.
-      - If the cabana is **unavailable**, display information that it's not available.
+Start the app with the default input files:
 
-  - **Booking Feedback:**
-    - Once a cabana is booked, update the map immediately to show that it is no longer available (e.g., use a distinct visual style for booked cabanas).
+```bash
+npm run dev
+```
 
-  - **Validation:** Booking is only allowed if room number and name match a current guest (validated via API using the bookings file).
+Start the app with custom files:
 
-The backend reads map layout and booking/guest data from files specified via CLI options: `--map <path-to-map>` (for the ASCII resort map; defaults to `map.ascii` in the working directory) and `--bookings <path-to-bookings>` (for bookings and guest information; defaults to `bookings.json` in the working directory).
-Be sure to use the provided example map (`map.ascii`) and bookings (`bookings.json`) files as the required format for your input files.
+```bash
+npm run dev -- --map ./src/map-variant.ascii --bookings ./src/bookings-variant.json
+```
 
-There is no need for persistent storage for cabana bookings—in-memory or session state on the backend is fine.
+For a production build, run:
 
-No auth—assume that knowing room number and guest name is sufficient auth.
+```bash
+npm run build
+npm run start
+```
 
-The booking flow should end with a clear confirmation and the map visibly updated (booked cabana distinct). Errors (e.g. invalid room/name) should show a short, human-readable message.
+The app will be available at [http://localhost:3000](http://localhost:3000).
 
----
+## API Overview
 
-## Deliverables
+The frontend talks only to REST endpoints:
 
-- **Source code** in a git repository (please provide a link and make sure we have permissions to view/download code).
-- **README:** Please ensure your README is well-structured, concise, and clearly documents how to run and use your app.
-Readme should containt a short paragraph explaining your core design decisions and any trade-offs (e.g. why you structured the API/UI as you did, what you kept simple or skipped).
-- **Single entrypoint:** Provide a **single command** (e.g. `./run.sh`, `npm run start`, or `dotnet run`) that launches both backend and frontend together, so reviewers need only run one command from the project root. This starting command **must accept** the `--map <path>` and `--bookings <path>` arguments so reviewers can specify alternative map or bookings files at startup.
-- **AI-assisted workflow documentation:** Please include your AI workflow in `AI.md`. Which tools you used, what kind of prompts and how many steps it took. This will not be judged, but a topic we would like to discuss during the interview.
-- **Screenshot:** Please include a screenshot (in your repository, e.g., `screenshot.png`) showing your running solution (map view).
-- **Automated Tests:** Include automated tests covering core backend and frontend functionality. Tests should validate booking logic, REST API behavior, map updates, and UI responses to typical user actions. Document how to run all tests in the README.
-- **LLM use:** If you use an LLM or coding agent (which we encourage), include the key prompts or agent setup you used. We may ask detailed questions about both the solution and how you used the tooling.
+- `GET /api/map` returns the formatted resort map with tile metadata and cabana booking state.
+- `POST /api/cabanas/book` validates guest details and books a cabana if it is still available.
 
----
+The backend reads the map and guest data from files configured through CLI arguments. Cabana reservations themselves are kept in memory.
 
-## General notes
+## Design Decisions And Trade-Offs
 
-- **Languages:** Use **.NET and/or JavaScript/TypeScript** only. Other languages are not in scope.
-- Keep it simple; avoid over-engineering. Within that stack, any reasonable libraries or frameworks are fine as long as they are documented.
-- No real auth or persistent storage required—in-memory/session state for cabana bookings is enough.
-- When in doubt, assume we had a simple solution in mind; feel free to ask questions.
+Design decisions:
+
+- Next.js is used for both frontend and API routes, which keeps setup small and doesn't require to create backend and frontend projects.
+- A custom Node entrypoint (`server.mjs`) forwards `--map` and `--bookings` arguments into runtime environment variables, so input files can be swapped without changing application code.
+- The map is generated on the backend from the ASCII source file, and the frontend only renders API data. This keeps the client focused on presentation and interaction instead of map parsing.
+- Cabana booking state is stored in memory using a server-side map, real auth is not implemented, and I did not use server actions. That matches the task requirements, which ask for a REST API-based solution and to not use persistent storage or a real authentication.
+- React Query is used to keep data fetching straightforward. It handles loading and error states for us, and after a successful booking it allows the app to refetch server state with very little code, so the UI stays in sync with the backend. It also gives the project a good foundation for future improvements such as more deliberate cache management, background refetching and more.
+
+Trade-offs:
+
+- For larger projects, I would move toward a feature-based structure, where each feature owns its own components, hooks, types, and server communication.
+- I kept validation lightweight. Normally I would use `zod` for schema validation and safer request/response parsing.
+
+## Project Structure
+
+- `src/app/page.tsx` contains the main page and map loading state.
+- `src/app/api/map/route.ts` serves the resort map.
+- `src/app/api/cabanas/book/route.ts` handles booking requests and validation.
+- `src/app/api/map/build-resort-map.ts` transforms the ASCII map into UI-friendly tile data.
+- `src/app/api/cabanas/book/cabana-bookings.ts` contains guest lookup and in-memory booking state.
+- `src/components/resort-map/*` contains the map and booking UI.
+- `server.mjs` is the custom startup entrypoint that accepts CLI file arguments, which is not natively supported by Next.js.
+
+## Tests
+
+To be added.
+
+## AI Workflow
+
+`AI.md` has not been added yet in the current state of the repository.
+AI workflow used by me: [AI.md](./AI.md)
